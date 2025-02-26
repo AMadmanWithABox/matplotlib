@@ -304,11 +304,24 @@ def test_alt_transform():
 
 
 @check_figures_equal()
-def test_long_name(fig_ref, fig_test):
-    fig_ref, ax_ref = plt.subplots()
-    fig_test, ax_test = plt.subplots()
+def test_long_name_line_plot(fig_ref, fig_test):
+    ax_ref = fig_ref.add_axes([0, 0, 1, 1])
+    ax_test = fig_test.add_axes([0, 0, 1, 1])
     i = 0
     for key, value in markers.MarkerStyle.markers.items():
-        ax_ref.plot([i], [1], s=50, marker=key)
-        ax_test.plot([i], [1], s=50, marker=value)
-        i += 1
+        if key != ',':
+            ax_ref.plot([i], [1], markersize=50, marker=key)
+            ax_test.plot([i], [1], markersize=50, marker=value)
+            i += 1
+
+
+@check_figures_equal()
+def test_long_name_scatter_plot(fig_ref, fig_test):
+    ax_ref = fig_ref.add_axes([0, 0, 1, 1])
+    ax_test = fig_test.add_axes([0, 0, 1, 1])
+    i = 0
+    for key, value in markers.MarkerStyle.markers.items():
+        if key != ',':
+            ax_ref.scatter([i], [1], s=50, marker=key)
+            ax_test.scatter([i], [1], s=50, marker=value)
+            i += 1

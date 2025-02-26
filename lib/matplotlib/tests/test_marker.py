@@ -301,3 +301,14 @@ def test_alt_transform():
     m1 = markers.MarkerStyle("o", "left")
     m2 = markers.MarkerStyle("o", "left", Affine2D().rotate_deg(90))
     assert m1.get_alt_transform().rotate_deg(90) == m2.get_alt_transform()
+
+
+@check_figures_equal()
+def test_long_name(fig_ref, fig_test):
+    fig_ref, ax_ref = plt.subplots()
+    fig_test, ax_test = plt.subplots()
+    i = 0
+    for key, value in markers.MarkerStyle.markers.items():
+        ax_ref.plot([i], [1], s=50, marker=key)
+        ax_test.plot([i], [1], s=50, marker=value)
+        i += 1
